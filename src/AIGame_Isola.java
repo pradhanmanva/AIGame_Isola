@@ -8,6 +8,8 @@ public class AIGame_Isola {
     //Constructor
     AIGame_Isola() {
         System.out.println("");
+        Board[0][3] = 1;
+        Board[6][3] = 2;
     }
 
     //FindPlayer() - finds the player position and returns in the Point Object
@@ -24,9 +26,21 @@ public class AIGame_Isola {
         return position;
     }
 
-    //FindBlocked - find the number of blocked states around that point
+    //FindBlocked - find the number of blocked states around that point (-1 states on the board)
     int findBlocked(Point position) {
-        return
+        int blocked = 0;
+        try {
+            for (int i = position.getX() - 1; i <= position.getX() + 1; i++) {
+                for (int j = position.getY() - 1; j <= position.getY() + 1; j++) {
+                    if (i != position.getX() && j != position.getY() && Board[i][j] == -1) {
+                        blocked++;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            blocked = -1;
+        }
+        return blocked;
     }
 }
 
