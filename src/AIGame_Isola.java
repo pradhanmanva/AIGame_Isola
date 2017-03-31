@@ -16,8 +16,8 @@ public class AIGame_Isola {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (id == Board[i][j]) {
-                    position.setX = i;
-                    position.setY = j;
+                    position.setX(i);
+                    position.setY(j);
                 }
             }
         }
