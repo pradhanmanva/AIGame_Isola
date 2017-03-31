@@ -14,7 +14,7 @@ public class AIGame_Isola {
 
     //FindPlayer() - finds the player position and returns in the Point Object
     Point findPlayer(int id) {
-        Point position = new Point();
+        Point position = new Point(0, 0);
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (id == Board[i][j]) {
