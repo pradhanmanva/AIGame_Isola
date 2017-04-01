@@ -67,6 +67,31 @@ public class AIGame_Isola {
         }
         return blocked;
     }
+    
+    /**
+	 * Function checks if any of the 8 moves is do able of not.
+	 * @param point the coordinate of player
+	 * @return true if any move is possible and false otherwise
+	 */
+	public boolean moveable(Point point){
+		int x = point.getX(), y = point.getY();
+		
+		for(int i= x+1;i<=x-1;i--){
+			if( i<0 || i>6)
+				continue;
+			for(int j=y+1;j<=y-1;i--){
+				if (j<0 || j>6)
+					continue;
+				
+				if (i == x && j == y)
+					continue;
+				
+				if(Board[i][j] == 0)
+					return true;
+			}
+		}
+		return false;
+	}
 
     /*
      * Moves the current player to best position
@@ -75,9 +100,17 @@ public class AIGame_Isola {
 	 * Return:
 	 * 		None. Moves the Player to Best Position 
 	 */
-    public void myMove(int playerId) {
+    public boolean myMove(int playerId) {
         Point myCoordinates = findPlayer(playerId);
-        findBestMove(playerId, myCoordinates);
+        if(moveable(myCoordinates)){
+			findBestMove(playerId,myCoordinates);
+			return true;
+        }
+		else{
+			int won = playerId==1?2:1;
+			System.out.println("Player ID: " + won + " Won");
+			return false;
+		}
     }
 
     /*
