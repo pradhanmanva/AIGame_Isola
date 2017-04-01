@@ -18,6 +18,16 @@ public class AIGame_Isola {
     void input() {
 
     }
+    
+    public static void main(String[] args) {
+		Isola isola = new Isola();
+		
+		int turn=1;
+		while(isola.myMove(turn)){
+				isola.blockMove(turn);
+				turn = turn==1?2:1;
+		}
+	}
 
     /**
      * FindPlayer() - finds the player position and returns in the Point Object
@@ -76,10 +86,10 @@ public class AIGame_Isola {
 	public boolean moveable(Point point){
 		int x = point.getX(), y = point.getY();
 		
-		for(int i= x+1;i<=x-1;i--){
+		for(int i= x+1;i>=x-1;i--){
 			if( i<0 || i>6)
 				continue;
-			for(int j=y+1;j<=y-1;i--){
+			for(int j=y+1;j>=y-1;j--){
 				if (j<0 || j>6)
 					continue;
 				
@@ -125,16 +135,21 @@ public class AIGame_Isola {
     private void findBestMove(int playerId, Point myCoordinates) {
         int x = myCoordinates.getX();
         int y = myCoordinates.getY();
+        
+        int init_x = x+1>6?x-1:x+1;
+        int init_y = y+1>6?y-1:y+1;
 
-        Point minPoint = new Point(0, 0);
-        int minWeakness = 0;
+        Point minPoint = new Point(init_x,init_y);
+        int minWeakness = findBlocked(new Point(init_x, init_y));
 
-        for (int i = x + 1; i <= x - 1; i--) {
+        for (int i = x + 1; i >= x - 1; i--) {
             if (i < 0 || i > 6)
                 continue;
-            for (int j = y + 1; j <= y - 1; i--) {
+            for (int j = y + 1; j >= y - 1; j--) {
                 if (j < 0 || j > 6)
                     continue;
+                if(Board[i][j] != 0)
+                	continue;
                 int weakness = findBlocked(new Point(i, j));
                 if (weakness < minWeakness) {
                     minPoint.setX(i);
@@ -146,6 +161,7 @@ public class AIGame_Isola {
 
         Board[x][y] = 0;
         Board[minPoint.getX()][minPoint.getY()] = playerId;
+        System.out.println("Player ID: " + playerId + " moved to: " + minPoint.getX() + "," + minPoint.getY());
     }
 
     /*
@@ -172,15 +188,20 @@ public class AIGame_Isola {
         int x = myCoordinates.getX();
         int y = myCoordinates.getY();
 
-        Point maxPoint = new Point(0, 0);
-        int maxWeakness = 0;
+        int init_x = x+1>6?x-1:x+1;
+        int init_y = y;
+        
+        Point maxPoint = new Point(init_x, init_y);
+        int maxWeakness = findBlocked(new Point(init_x, init_y));;
 
-        for (int i = x + 1; i <= x - 1; i--) {
+        for (int i = x + 1; i >= x - 1; i--) {
             if (i < 0 || i > 6)
                 continue;
-            for (int j = y + 1; j <= y - 1; i--) {
+            for (int j = y + 1; j >= y - 1; j--) {
                 if (j < 0 || j > 6)
                     continue;
+                if(Board[i][j] != 0)
+                	continue;
                 int weakness = findBlocked(new Point(i, j));
                 if (weakness > maxWeakness) {
                     maxPoint.setX(i);
@@ -190,6 +211,8 @@ public class AIGame_Isola {
             }
         }
         Board[maxPoint.getX()][maxPoint.getY()] = -1;
+        System.out.println("Blocked: " + maxPoint.getX() + "," + maxPoint.getY());
+
     }
 
 }
