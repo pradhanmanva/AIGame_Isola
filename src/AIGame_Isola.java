@@ -17,27 +17,31 @@ public class AIGame_Isola {
      * TO get the inout from the user
      */
     private void input() {
-        Scanner scanner = new Scanner(System.in);
-        int x, y;
-        System.out.println("Would you like to state the initial position for the players? (Y or N)");
-        String answer = scanner.nextLine();
-        if (answer.equals("Y") || answer.equals("y") || answer.equals("yes") || answer.equals("Yes") || answer.equals("YES")) {
-            System.out.println("Player 1 : \n\tX-coordinate : ");
-            x = scanner.nextInt();
-            System.out.println("\tY-coordinate : ");
-            y = scanner.nextInt();
-            Board[x][y] = 1;
+        try {
+            Scanner scanner = new Scanner(System.in);
+            int x, y;
+            System.out.println("Would you like to state the initial position for the players? (Y or N)");
+            String answer = scanner.nextLine();
+            if (answer.equals("Y") || answer.equals("y") || answer.equals("yes") || answer.equals("Yes") || answer.equals("YES")) {
+                System.out.println("Player 1 : \n\tX-coordinate : ");
+                x = scanner.nextInt();
+                System.out.println("\tY-coordinate : ");
+                y = scanner.nextInt();
+                Board[x][y] = 1;
 
-            System.out.println("Player 2 : \n\tX-coordinate : ");
-            x = scanner.nextInt();
-            System.out.println("\tY-coordinate : ");
-            y = scanner.nextInt();
-            Board[x][y] = 2;
-        } else {
+                System.out.println("Player 2 : \n\tX-coordinate : ");
+                x = scanner.nextInt();
+                System.out.println("\tY-coordinate : ");
+                y = scanner.nextInt();
+                Board[x][y] = 2;
+            } else {
+                Board[0][3] = 1;
+                Board[6][3] = 2;
+            }
+        } catch (Exception e) {
             Board[0][3] = 1;
             Board[6][3] = 2;
         }
-
     }
 
     public static void main(String[] args) {
