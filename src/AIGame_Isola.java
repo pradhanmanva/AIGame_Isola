@@ -22,7 +22,7 @@ public class AIGame_Isola {
             int x, y;
             System.out.println("Would you like to state the initial position for the players? (Y or N)");
             String answer = scanner.nextLine();
-            if (answer.equals("Y") || answer.equals("y") || answer.equals("yes") || answer.equals("Yes") || answer.equals("YES")) {
+            if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("Yes")) {
                 System.out.println("Player 1 : \n\tX-coordinate : ");
                 x = scanner.nextInt();
                 System.out.println("\tY-coordinate : ");
